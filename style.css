@@ -2,291 +2,560 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  --bg: #10091e;
-  --card: #1b1230;
-  --purple: #a855f7;
-  --pink: #e879f9;
-  --text: #ffffff;
-  --muted: #a99cbd;
+  --bg: #080510;
+  --card: #120b20;
+  --purple: #7900ff;
+  --pink: #c000ff;
+  --text: #fff;
+  --muted: #b8a9ca;
 }
 
-body {
+html, body {
+  min-height: 100%;
   background: var(--bg);
   color: var(--text);
   font-family: Arial, sans-serif;
-  min-height: 100vh;
 }
 
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 10% 0%, #30005e, transparent 38%),
+    radial-gradient(ellipse at 100% 90%, #26004d, transparent 35%),
+    var(--bg);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Açılış */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #050309;
+}
+
+.splash-logo {
+  font-size: 150px;
+  line-height: 1;
+  font-weight: 900;
+  font-style: italic;
+  color: #b56aff;
+  text-shadow: 0 0 18px #7600ff;
+  animation: logoIn 1.2s ease;
+}
+
+.splash h1 {
+  font-size: 39px;
+  margin-top: 22px;
+}
+
+.splash h1 span,
+.brand h2 span,
+.about-content h1 span {
+  color: #bd38ff;
+}
+
+.splash p {
+  color: #c7b6db;
+  margin-top: 8px;
+}
+
+.loader {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #321052;
+  border-top-color: #c34bff;
+  border-radius: 50%;
+  margin-top: 55px;
+  animation: spin 1s linear infinite;
+}
+
+.creator {
+  position: absolute;
+  bottom: 35px;
+  color: #e6d5ff;
+  font-size: 17px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoIn {
+  from { opacity: 0; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Ümumi başlıq */
 .app {
   width: 100%;
   max-width: 520px;
+  min-height: 100vh;
   margin: auto;
-  padding: 20px 17px 100px;
+  padding: 22px 16px 145px;
 }
 
-header {
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 0 25px;
 }
 
-.logo {
-  width: 49px;
-  height: 49px;
+.small-logo,
+.about-logo {
   display: grid;
   place-items: center;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #9333ea, #ec4899);
-  font-size: 23px;
+  background: linear-gradient(145deg, #a000ff, #4200bd);
+  box-shadow: 0 0 14px #7900ff66;
+  border-radius: 14px;
+  font-size: 29px;
   font-weight: 900;
+  font-style: italic;
+  width: 55px;
+  height: 55px;
 }
 
-.logo span {
-  color: #f5d0fe;
+.brand h2 {
+  font-size: 24px;
 }
 
-.brand h1 {
-  font-size: 22px;
+.brand small {
+  color: var(--muted);
+  font-size: 11px;
 }
 
-.brand p {
+.online {
+  color: #00e887;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #087c4c;
+  border-radius: 20px;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.online i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #00e887;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/* Ayrı səhifələr */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+  animation: pageIn .2s ease;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Əsas səhifə */
+.download-card,
+.settings-card,
+.about-card {
+  background: linear-gradient(145deg, #180b2b, #0d0817);
+  border: 1px solid #6420a1;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 5px 22px #0008;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 25px;
+}
+
+.tiktok-icon {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: #080510;
+  border: 9px solid #26004e;
+  border-radius: 50%;
+  font-size: 58px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -3px 0 #00e6e6, 3px 0 #ff0050;
+}
+
+.intro h3 {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.link-box {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0a0612;
+  border: 1px solid #7130aa;
+  border-radius: 15px;
+  overflow: hidden;
+  padding-left: 13px;
+}
+
+.link-box input {
+  flex: 1;
+  min-width: 0;
+  color: white;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.link-box input::placeholder {
+  color: #a994bb;
+}
+
+.paste-btn {
+  height: 52px;
+  width: 58px;
+  color: white;
+  font-size: 25px;
+  border: 0;
+  background: linear-gradient(135deg, #a000ff, #5900d9);
+}
+
+.download-btn {
+  width: 100%;
+  min-height: 57px;
+  margin-top: 14px;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(100deg, #7624ff, #a000ed);
+  box-shadow: 0 5px 15px #7000ff44;
+}
+
+.download-btn:disabled {
+  opacity: .6;
+}
+
+/* Faiz göstəricisi */
+.progress-box {
+  margin-top: 18px;
+  padding: 13px;
+  background: #10091b;
+  border: 1px solid #542080;
+  border-radius: 14px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  color: #d9c5ef;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.progress-info b {
+  color: #d34bff;
+}
+
+.progress-track {
+  width: 100%;
+  height: 9px;
+  background: #30203e;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 1%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #7624ff, #d000ff);
+  transition: width .25s ease;
+}
+
+.status {
+  min-height: 18px;
+  color: #d6b6ff;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.features {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.features div {
+  flex: 1;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #0b0712;
+  border: 1px solid #38204e;
+  border-radius: 16px;
+  font-size: 23px;
+}
+
+.features span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Tarixçə */
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 2px 18px;
+}
+
+.section-heading h2 {
+  font-size: 19px;
+}
+
+.section-heading button {
+  color: white;
+  background: #21112f;
+  border: 1px solid #3a2053;
+  border-radius: 18px;
+  padding: 9px 13px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #130b20;
+  border: 1px solid #42205f;
+  padding: 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.history-thumb {
+  width: 58px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #5c00c9, #160a29);
+  font-size: 25px;
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-info b {
+  display: block;
+  font-size: 13px;
+}
+
+.history-info small,
+.empty {
   color: var(--muted);
   font-size: 11px;
   margin-top: 5px;
 }
 
-.status {
-  margin-left: auto;
-  border: 1px solid #39274f;
-  border-radius: 20px;
-  padding: 8px 10px;
-  color: #d8c9eb;
-  font-size: 11px;
-}
-
-.status i {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #4ade80;
-  margin-right: 4px;
-}
-
-.hero {
+.empty {
   text-align: center;
-  padding: 26px 5px 29px;
+  padding: 35px 10px;
+  background: #130b20;
+  border: 1px solid #42205f;
+  border-radius: 15px;
 }
 
-.music-icon {
-  width: 73px;
-  height: 73px;
-  margin: 0 auto 17px;
+/* Haqqında */
+.about-content {
+  text-align: center;
+  padding-top: 35px;
 }
 
-.music-icon svg {
-  width: 100%;
-  height: 100%;
+.about-logo {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  font-size: 60px;
+  border-radius: 24px;
 }
 
-.hero h2 {
-  font-size: 27px;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.download-card,
-.feature,
-.history {
-  background: linear-gradient(145deg, #211533, #181026);
-  border: 1px solid #39254d;
-  border-radius: 22px;
-  padding: 20px;
-}
-
-.download-card label {
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.input-row {
-  display: flex;
-  gap: 8px;
-}
-
-.input-box {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-  border: 1px solid #48305e;
-  border-radius: 13px;
-  padding: 5px 8px;
-  background: #110b1c;
-}
-
-.link-icon {
-  color: var(--pink);
-  font-size: 22px;
-}
-
-input {
-  width: 100%;
-  min-width: 0;
-  background: transparent;
-  color: white;
-  border: none;
-  outline: none;
-  padding: 12px 5px;
-  font-size: 12px;
-}
-
-input::placeholder {
-  color: #857696;
-}
-
-button {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.paste-btn {
-  background: #30203f;
-  border: none;
-  border-radius: 9px;
-  color: #e9d5ff;
-  padding: 10px;
-  font-size: 11px;
-}
-
-.download-btn {
-  width: 100%;
-  margin-top: 16px;
-  padding: 16px;
-  border: none;
-  border-radius: 13px;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  background: linear-gradient(100deg, #9333ea, #c026d3);
-  box-shadow: 0 8px 24px #9333ea33;
-}
-
-.download-btn span {
-  font-size: 20px;
-  margin-right: 7px;
-}
-
-.message {
+.about-content h1 {
   margin-top: 14px;
-  text-align: center;
+  font-size: 34px;
+}
+
+.about-content > p {
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.6;
+  margin: 8px 0 20px;
 }
 
-#result {
-  margin-top: 18px;
-  padding: 14px;
-  border-radius: 14px;
-  background: #17291f;
-  border: 1px solid #28543a;
-}
-
-#result[hidden] {
-  display: none;
-}
-
-#result p {
-  color: #4ade80;
-  margin-bottom: 12px;
-}
-
-#result a {
-  display: block;
-  padding: 13px;
+.about-card {
   text-align: center;
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: bold;
-  border-radius: 10px;
-  background: #23864b;
+  line-height: 1.7;
+  color: #e4d7f2;
+  font-size: 14px;
 }
 
-.feature {
-  display: flex;
-  gap: 14px;
-  margin-top: 17px;
-  padding: 17px;
+.about-card ul {
+  list-style: none;
+  text-align: left;
+  width: max-content;
+  margin: 15px auto;
 }
 
-.shield {
-  font-size: 24px;
-}
-
-.feature strong {
-  font-size: 13px;
-}
-
-.feature p {
+.about-card small {
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.6;
-  margin-top: 6px;
 }
 
-.history-section {
-  margin-top: 28px;
+/* Parametrlər */
+.page-title {
+  margin: 12px 0 20px;
+  font-size: 20px;
 }
 
-.history-header {
+.settings-card {
+  padding: 0 15px;
+  margin-bottom: 17px;
+}
+
+.setting-row {
+  min-height: 57px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  border-bottom: 1px solid #332044;
+  font-size: 14px;
 }
 
-.history-header h3 {
-  font-size: 16px;
+.setting-row:last-child {
+  border-bottom: 0;
 }
 
-.history-header button {
-  color: #d8b4fe;
-  border: none;
+.switch {
+  width: 43px;
+  height: 24px;
+  border-radius: 20px;
+  background: #555;
+}
+
+.switch.on {
+  background: #9d00ff;
+}
+
+.switch::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  margin: 3px;
+  float: right;
+}
+
+/* Alt menyu */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 5px 8px;
+  background: #0a0611f5;
+  border-top: 1px solid #542080;
+  z-index: 5;
+}
+
+.nav-btn {
+  flex: 1;
+  color: #a99ab9;
   background: transparent;
-  font-size: 12px;
+  border: 0;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.history {
-  padding: 15px;
+.nav-btn small {
+  font-size: 10px;
 }
 
-.history p {
-  text-align: center;
-  color: #8f819f;
-  font-size: 12px;
-  padding: 10px 0;
+.nav-btn.active {
+  color: #d14bff;
+}
+
+.footer-brand {
+  position: fixed;
+  bottom: 82px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #d6b5ef;
+  font-size: 14px;
+  z-index: 4;
 }
 
 @media (max-width: 360px) {
-  .app {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .hero h2 {
-    font-size: 24px;
-  }
+  .intro h3 { font-size: 15px; }
+  .tiktok-icon { width: 78px; height: 78px; font-size: 45px; }
+  .brand h2 { font-size: 21px; }
 }
