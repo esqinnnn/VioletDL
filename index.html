@@ -2,18 +2,79 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10091e">
   <title>VioletDL</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="app">
-    <h1>VioletDL</h1>
-    <p>TikTok Video Downloader</p>
-  </div>
+<div class="app">
 
-  <script src="script.js"></script>
+  <header>
+    <div class="logo">V<span>D</span></div>
+    <div class="brand">
+      <h1>VioletDL</h1>
+      <p>ehmedows⚡ · TikTok Downloader</p>
+    </div>
+    <div class="status"><i></i> Aktiv</div>
+  </header>
+
+  <section class="hero">
+    <div class="music-icon">
+      <svg viewBox="0 0 100 100">
+        <rect width="100" height="100" rx="28" fill="#7625bd"/>
+        <path d="M58 22v39a17 17 0 1 1-13-16v12a6 6 0 1 0 4 6V22z" fill="white"/>
+        <path d="M58 22v12c6 5 12 7 17 7V29c-6-1-12-3-17-7z" fill="white"/>
+      </svg>
+    </div>
+    <h2>Videonu yüklə</h2>
+    <p>Sevdiyin TikTok videolarını asanlıqla saxla.</p>
+  </section>
+
+  <section class="download-card">
+    <label for="videoUrl">TikTok video linki</label>
+
+    <div class="input-row">
+      <div class="input-box">
+        <span class="link-icon">↗</span>
+        <input id="videoUrl" type="url" placeholder="TikTok linkini daxil et">
+      </div>
+      <button id="pasteBtn" class="paste-btn">Yapışdır</button>
+    </div>
+
+    <button id="downloadBtn" class="download-btn">
+      <span>↓</span> Videonu yüklə
+    </button>
+
+    <p id="message" class="message">TikTok video linkini daxil et.</p>
+
+    <div id="result" hidden>
+      <p>Video hazırdır!</p>
+      <a id="saveBtn" href="#" download="VioletDL.mp4">Videonu saxla ↓</a>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="shield">🛡️</div>
+    <div>
+      <strong>Sadə və rahat</strong>
+      <p>Linki daxil et, videonu əldə et və telefonunda saxla.</p>
+    </div>
+  </section>
+
+  <section class="history-section">
+    <div class="history-header">
+      <h3>Son yükləmələr</h3>
+      <button id="clearHistory">Təmizlə</button>
+    </div>
+    <div id="history" class="history">
+      <p>Hələ video yüklənməyib.</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
