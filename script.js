@@ -1,284 +1,832 @@
-
-const API_BASE = "https://violetdl.onrender.com";
-
-const $ = id => document.getElementById(id);
-
-let downloads = [];
-let progressTimer = null;
-let progress = 0;
-
-try {
-  downloads = JSON.parse(
-    localStorage.getItem("violetHistory") || "[]"
-  );
-} catch {
-  downloads = [];
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-// Açılış ekranı
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    $("splash")?.classList.add("hidden");
-    $("app")?.classList.remove("hidden");
-  }, 1800);
+:root {
+  --bg: #080510;
+  --card: #120b20;
+  --card2: #1b102b;
+  --purple: #7900ff;
+  --pink: #c000ff;
+  --text: #ffffff;
+  --muted: #a99abb;
+  --border: #352044;
+  --green: #42e88a;
+}
 
-  renderHistory();
-  checkServer();
-});
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
 
-// Səhifələr
-document.querySelectorAll(".nav-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    const pageId = button.dataset.page;
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, #48107835, transparent 35%),
+    radial-gradient(circle at 100% 65%, #7900ff16, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 
-    document.querySelectorAll(".page").forEach(page => {
-      page.classList.remove("active");
-    });
+input {
+  user-select: text;
+  -webkit-user-select: text;
+}
 
-    document.querySelectorAll(".nav-btn").forEach(nav => {
-      nav.classList.remove("active");
-    });
+button {
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+}
 
-    $(pageId)?.classList.add("active");
-    button.classList.add("active");
+.hidden {
+  display: none !important;
+}
 
-    if (pageId === "historyPage") renderHistory();
-    window.scrollTo(0, 0);
-  });
-});
+/* Açılış ekranı */
 
-// Server yoxlanışı
-async function checkServer() {
-  try {
-    const response = await fetch(API_BASE + "/api/status");
-    console.log(response.ok ? "Server ONLINE" : "Server OFFLINE");
-  } catch {
-    console.log("Serverlə əlaqə yoxdur");
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 42%, #57218b35, transparent 35%),
+    #080510;
+  transition: opacity .5s ease, visibility .5s ease;
+  overflow: hidden;
+}
+
+.splash-logo {
+  width: 125px;
+  height: 125px;
+  display: grid;
+  place-items: center;
+  border-radius: 35px;
+  background: linear-gradient(145deg, #a020ff, #4c087e);
+  box-shadow: 0 0 55px #8700ff75;
+  animation: logoIn 1s ease;
+}
+
+.splash-logo.crystal {
+  padding: 8px;
+  background: linear-gradient(145deg, #ffffff20, #4c087e40);
+  border: 1px solid #d9c2ff55;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.crystal svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 9px #bd91ff80);
+}
+
+.splash h1 {
+  margin-top: 25px;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.splash h1 span,
+.brand h2 span,
+.about-content h1 span {
+  color: var(--purple);
+}
+
+.splash p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+  letter-spacing: 2px;
+}
+
+.loader {
+  width: 35px;
+  height: 35px;
+  margin-top: 35px;
+  border: 3px solid #39224e;
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+.creator {
+  position: absolute;
+  bottom: 35px;
+  color: #8f7ba4;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoIn {
+  from { opacity: 0; transform: scale(.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Əsas tətbiq */
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 18px 17px 100px;
+  animation: pageIn .45s ease;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Üst başlıq */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 25px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.small-logo {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #a020ff, #5a0a91);
+  box-shadow: 0 0 22px #7900ff45;
+}
+
+.small-logo.crystal {
+  padding: 5px;
+  border: 1px solid #d5b5ff55;
+  background: linear-gradient(145deg, #ffffff20, #5a0a9140);
+}
+
+.brand h2 {
+  font-size: 21px;
+  letter-spacing: .5px;
+}
+
+.brand small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.online {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 11px;
+  border: 1px solid #28583c;
+  border-radius: 20px;
+  color: #8bf0b5;
+  font-size: 10px;
+  letter-spacing: .5px;
+}
+
+.online i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 9px #42e88a;
+}
+
+/* Səhifələr */
+
+.page {
+  display: none;
+  animation: pageIn .3s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Yükləmə kartı */
+
+.download-card {
+  padding: 22px 18px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(145deg, #1b1029, #100a19);
+  box-shadow: 0 15px 45px #00000035;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 27px;
+}
+
+.tiktok-icon {
+  flex-shrink: 0;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #9829ed, #51117e);
+  color: white;
+  font-size: 57px;
+  font-weight: bold;
+  text-shadow: 3px 2px #00eaff, -3px -2px #ff245b;
+  box-shadow: 0 0 28px #7900ff40;
+}
+
+.intro h3 {
+  font-size: 19px;
+  line-height: 1.35;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.input-label {
+  display: block;
+  color: #e4d7f2;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.link-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  min-height: 54px;
+  border: 1px solid #49305e;
+  border-radius: 13px;
+  background: #0b0712;
+  transition: border .2s, box-shadow .2s;
+}
+
+.link-box:focus-within {
+  border-color: var(--purple);
+  box-shadow: 0 0 12px #7900ff30;
+}
+
+.link-icon {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.link-box input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 12px;
+  padding: 11px 0;
+}
+
+.link-box input::placeholder {
+  color: #82738f;
+}
+
+.paste-btn {
+  flex-shrink: 0;
+  padding: 10px 13px;
+  border-radius: 9px;
+  background: #342044;
+  color: #e7caff;
+  font-size: 17px;
+}
+
+.paste-btn:active {
+  background: #593078;
+}
+
+/* Yükləmə düyməsi */
+
+.download-btn {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 16px;
+  border-radius: 13px;
+  background: linear-gradient(100deg, #7900ff, #c000ff);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 8px 25px #7900ff38;
+  transition: transform .2s, opacity .2s;
+}
+
+.download-btn:active {
+  transform: scale(.98);
+}
+
+.download-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* Proqres */
+
+.progress-box {
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid #3b2850;
+  border-radius: 13px;
+  background: #0c0714;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #e9d5ff;
+  font-size: 12px;
+}
+
+.progress-info b {
+  color: #d9a2ff;
+}
+
+.progress-track {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #39254d;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #7900ff, #ed8cff);
+  transition: width .25s ease;
+}
+
+/* Status mesajı */
+
+.status {
+  min-height: 18px;
+  margin-top: 14px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Xüsusiyyətlər */
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.features > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid #352044;
+  border-radius: 13px;
+  background: #160d21;
+  color: #d9a5ff;
+  font-size: 20px;
+}
+
+.features span {
+  color: #d9cde5;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Tarixçə */
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0 18px;
+}
+
+.section-heading h2 {
+  font-size: 18px;
+}
+
+.section-heading button {
+  padding: 8px 12px;
+  border: 1px solid #4a285f;
+  border-radius: 9px;
+  background: #21132f;
+  color: #d9a5ff;
+  font-size: 11px;
+}
+
+.history-list {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #150d20;
+}
+
+.empty {
+  padding: 25px 10px;
+  text-align: center;
+  color: #8f819f;
+  font-size: 12px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #30203f;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-thumb {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #342044;
+  color: #e9a8ff;
+  font-size: 21px;
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-info strong,
+.history-info b {
+  display: block;
+  color: white;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-info small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* Haqqında */
+
+.about-content {
+  padding: 20px 5px;
+  text-align: center;
+}
+
+.about-logo {
+  width: 90px;
+  height: 90px;
+  display: grid;
+  place-items: center;
+  margin: 10px auto 17px;
+  border-radius: 27px;
+  background: linear-gradient(145deg, #a020ff, #4c087e);
+  box-shadow: 0 0 35px #7900ff50;
+}
+
+.about-logo.crystal {
+  padding: 8px;
+  background: transparent;
+  box-shadow: 0 0 35px #7900ff35;
+}
+
+.about-content h1 {
+  font-size: 27px;
+}
+
+.about-content > p {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.about-card {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  color: #d7c9e5;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.about-card ul {
+  list-style: none;
+  margin: 15px 0;
+}
+
+.about-card li {
+  padding: 6px 0;
+}
+
+.about-card small {
+  color: var(--muted);
+}
+
+/* Parametrlər */
+
+.page-title {
+  margin: 12px 0 18px;
+  font-size: 19px;
+}
+
+.settings-card {
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 55px;
+  border-bottom: 1px solid #30203f;
+  color: #e5d9ef;
+  font-size: 12px;
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-row > span:last-child {
+  color: var(--muted);
+}
+
+.switch {
+  width: 38px;
+  height: 21px;
+  border-radius: 20px;
+  background: #51465e;
+  position: relative;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  transition: .2s;
+}
+
+.switch.on {
+  background: var(--purple);
+}
+
+.switch.on::after {
+  left: 20px;
+}
+
+/* Aşağı menyu */
+
+.bottom-nav {
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 520px;
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  border-top: 1px solid #352044;
+  background: #10091e;
+  box-shadow: 0 -8px 25px #00000040;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 50px;
+  background: transparent;
+  color: #82738f;
+  font-size: 22px;
+  transition: color .2s;
+}
+
+.nav-btn small {
+  font-size: 10px;
+}
+
+.nav-btn.active {
+  color: #c77aff;
+}
+
+.footer-brand {
+  margin-top: 25px;
+  text-align: center;
+  color: #756582;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* Kiçik ekranlar */
+
+@media (max-width: 360px) {
+  .app {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .download-card {
+    padding: 17px 13px;
+  }
+
+  .intro {
+    gap: 12px;
+  }
+
+  .tiktok-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 48px;
+  }
+
+  .intro h3 {
+    font-size: 16px;
+  }
+
+  .brand h2 {
+    font-size: 18px;
+  }
+
+  .online {
+    padding: 7px 8px;
   }
 }
 
-// Clipboard-dan yapışdır
-$("pasteBtn").addEventListener("click", async () => {
-  try {
-    if (!navigator.clipboard?.readText) {
-      throw new Error("Clipboard dəstəyi yoxdur");
-    }
+/* Crystal şüşə detalları */
 
-    const copiedText = await navigator.clipboard.readText();
+.download-card,
+.history-list,
+.about-card,
+.settings-card,
+.features > div {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
-    if (!copiedText.trim()) {
-      $("status").textContent = "Clipboard boşdur!";
-      return;
-    }
+.download-card {
+  border-color: #b58be52b;
+}
 
-    $("videoLink").value = copiedText.trim();
-    $("status").textContent = "Link yapışdırıldı!";
+.link-box:focus-within {
+  box-shadow: 0 0 12px #a46bff35;
+}
 
-  } catch (error) {
-    $("status").textContent =
-      "Clipboard icazəsi yoxdur. APK-da clipboard icazəsini aktiv et.";
+.splash-logo.crystal {
+  animation: crystalIn 1s ease, crystalFloat 4s ease-in-out 1s infinite;
+}
+
+@keyframes crystalIn {
+  from {
+    opacity: 0;
+    transform: scale(.65) rotate(-15deg);
   }
-});
-
-// Tarixçə
-function renderHistory() {
-  const box = $("history");
-  box.innerHTML = "";
-
-  if (!downloads.length) {
-    box.innerHTML =
-      '<p class="empty">Hələ yükləmə yoxdur</p>';
-    return;
-  }
-
-  downloads.forEach(item => {
-    const row = document.createElement("div");
-    row.className = "history-item";
-
-    const thumb = document.createElement("div");
-    thumb.className = "history-thumb";
-    thumb.textContent = "▶";
-
-    const info = document.createElement("div");
-    info.className = "history-info";
-
-    const title = document.createElement("b");
-    title.textContent = item.title || "TikTok Video";
-
-    const date = document.createElement("small");
-    date.textContent = item.date || "";
-
-    info.append(title, date);
-    row.append(thumb, info);
-    box.appendChild(row);
-  });
-}
-
-// Tarixçəni təmizlə
-$("clearHistory").addEventListener("click", () => {
-  downloads = [];
-  localStorage.removeItem("violetHistory");
-  renderHistory();
-});
-
-// Tarixçəyə yaz
-function saveHistory(title) {
-  downloads.unshift({
-    title,
-    date: new Date().toLocaleString("az-AZ")
-  });
-
-  downloads = downloads.slice(0, 50);
-
-  localStorage.setItem(
-    "violetHistory",
-    JSON.stringify(downloads)
-  );
-
-  renderHistory();
-}
-
-// Faiz göstəricisi
-function updateProgress(value) {
-  progress = Math.min(100, Math.max(0, value));
-
-  $("progressPercent").textContent = progress + "%";
-  $("progressFill").style.width = progress + "%";
-}
-
-function startProgress() {
-  clearInterval(progressTimer);
-
-  progress = 0;
-  $("progressBox").classList.remove("hidden");
-  $("progressText").textContent = "Video yüklənir...";
-
-  updateProgress(0);
-
-  progressTimer = setInterval(() => {
-    if (progress < 99) {
-      updateProgress(progress + 1);
-    }
-  }, 120);
-}
-
-function finishProgress() {
-  clearInterval(progressTimer);
-  updateProgress(100);
-  $("progressText").textContent = "Yükləmə tamamlandı!";
-}
-
-function failProgress() {
-  clearInterval(progressTimer);
-  $("progressText").textContent = "Yükləmə alınmadı!";
-}
-
-// TikTok linkini yoxla
-function isTikTokLink(link) {
-  try {
-    const url = new URL(link);
-    return /(^|\.)tiktok\.com$/i.test(url.hostname);
-  } catch {
-    return false;
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
   }
 }
 
-// Video yükləmə
-$("downloadBtn").addEventListener("click", async () => {
-  const link = $("videoLink").value.trim();
-  const button = $("downloadBtn");
+@keyframes crystalFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
 
-  if (!link) {
-    $("status").textContent = "Əvvəlcə TikTok linkini əlavə et!";
-    return;
-  }
+/* Yeniləmə pəncərəsi */
 
-  if (!isTikTokLink(link)) {
-    $("status").textContent = "Düzgün TikTok linki daxil et!";
-    return;
-  }
+.update-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: #000000c9;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 
-  button.disabled = true;
-  button.textContent = "Yüklənir...";
+.update-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 28px 22px;
+  border: 1px solid #a66bff70;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #211333, #10091c);
+  box-shadow: 0 0 45px #7900ff45;
+  text-align: center;
+  animation: pageIn .35s ease;
+}
 
-  startProgress();
+.update-icon {
+  width: 75px;
+  height: 75px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #8538d8, #3c1269);
+  font-size: 38px;
+  box-shadow: 0 0 30px #7900ff60;
+}
 
-  try {
-    const response = await fetch(API_BASE + "/api/download", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ url: link })
-    });
+.update-card h2 {
+  color: white;
+  font-size: 21px;
+  margin-bottom: 12px;
+}
 
-    if (!response.ok) {
-      let message = "Video yüklənmədi.";
+#updateVersion {
+  color: #d6a5ff;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
 
-      try {
-        const data = await response.json();
-        message = data.error || data.message || message;
-      } catch {}
+#updateDescription {
+  color: #b9a9c9;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 23px;
+}
 
-      throw new Error(message);
-    }
-
-    const contentType =
-      response.headers.get("content-type") || "";
-
-    if (contentType.includes("application/json")) {
-      const data = await response.json();
-
-      const fileUrl =
-        data.downloadUrl ||
-        data.download_url ||
-        data.url;
-
-      if (!fileUrl) {
-        throw new Error("Server video linkini göndərmədi.");
-      }
-
-      const fullUrl = new URL(fileUrl, API_BASE).href;
-
-      const a = document.createElement("a");
-      a.href = fullUrl;
-      a.download = "VioletDL_video.mp4";
-      a.target = "_blank";
-      a.rel = "noopener";
-
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      saveHistory(data.title || "TikTok Video");
-
-    } else {
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = "VioletDL_video.mp4";
-
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
-
-      saveHistory("TikTok Video");
-    }
-
-    finishProgress();
-    $("status").textContent = "Video endirilməyə göndərildi!";
-    $("videoLink").value = "";
-
-  } catch (error) {
-    failProgress();
-    $("status").textContent =
-      error.message || "Xəta baş verdi!";
-  } finally {
-    button.disabled = false;
-    button.textContent = "⬇ Videonu Yüklə";
-  }
-});
+.update-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 13px;
+  background: linear-gradient(100deg, #7900ff, #c000ff);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 8px 25px #7900ff45;
+}
