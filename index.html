@@ -1,16 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#080510">
+  <meta name="description" content="VioletDL - TikTok Video Downloader">
   <title>VioletDL</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div id="splash" class="splash">
-    <div class="splash-logo">V</div>
+    <div class="splash-logo crystal">
+      <svg viewBox="0 0 180 180">
+        <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
+        <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
+        <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
+        <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
+      </svg>
+    </div>
     <h1>Violet<span>DL</span></h1>
     <p>TikTok Video Downloader</p>
     <div class="loader"></div>
@@ -21,7 +30,14 @@
 
     <header class="topbar">
       <div class="brand">
-        <div class="small-logo">V</div>
+        <div class="small-logo crystal">
+          <svg viewBox="0 0 180 180">
+            <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
+            <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
+            <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
+            <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="4"/>
+          </svg>
+        </div>
         <div>
           <h2>Violet<span>DL</span></h2>
           <small>TikTok Video Downloader</small>
@@ -30,7 +46,6 @@
       <div class="online"><i></i> ONLINE</div>
     </header>
 
-    <!-- ƏSAS -->
     <section id="home" class="page active">
       <div class="download-card">
         <div class="intro">
@@ -41,18 +56,15 @@
           </div>
         </div>
 
+        <label class="input-label" for="videoLink">TikTok video linki</label>
+
         <div class="link-box">
           <span class="link-icon">🔗</span>
-          <input id="videoLink" type="url"
-                 placeholder="TikTok linki..."
-                 autocomplete="off">
-          <button id="pasteBtn" class="paste-btn" type="button"
-                  aria-label="Yapışdır">▢</button>
+          <input id="videoLink" type="url" placeholder="TikTok linki..." autocomplete="off" spellcheck="false">
+          <button id="pasteBtn" class="paste-btn" type="button" aria-label="Linki yapışdır">▢</button>
         </div>
 
-        <button id="downloadBtn" class="download-btn" type="button">
-          ⬇ Videonu Yüklə
-        </button>
+        <button id="downloadBtn" class="download-btn" type="button">⬇ Videonu Yüklə</button>
 
         <div id="progressBox" class="progress-box hidden">
           <div class="progress-info">
@@ -73,21 +85,30 @@
       </div>
     </section>
 
-    <!-- TARİXÇƏ -->
     <section id="historyPage" class="page">
       <div class="section-heading">
         <h2>◷ Yükləmə tarixçəsi</h2>
         <button id="clearHistory" type="button">Təmizlə</button>
       </div>
-      <div id="history" class="history-list"></div>
+      <div id="history" class="history-list">
+        <div class="empty">Hələ video yüklənməyib.</div>
+      </div>
     </section>
 
-    <!-- HAQQINDA -->
     <section id="about" class="page">
       <div class="about-content">
-        <div class="about-logo">V</div>
+        <div class="about-logo crystal">
+          <svg viewBox="0 0 180 180">
+            <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
+            <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
+            <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
+            <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="3"/>
+          </svg>
+        </div>
+
         <h1>Violet<span>DL</span></h1>
         <p>TikTok Video Downloader</p>
+
         <div class="about-card">
           VioletDL – TikTok videolarını asanlıqla yükləmək üçün hazırlanmış tətbiqdir.
           <ul>
@@ -100,10 +121,8 @@
       </div>
     </section>
 
-    <!-- PARAMETRLƏR -->
     <section id="settings" class="page">
       <h2 class="page-title">⚙️ Parametrlər</h2>
-
       <div class="settings-card">
         <div class="setting-row">
           <span>🌙 Qaranlıq rejim</span>
@@ -118,7 +137,6 @@
           <span>1.0.0</span>
         </div>
       </div>
-
       <div class="settings-card">
         <div class="setting-row">
           <span>ⓘ Tətbiq haqqında</span>
@@ -132,18 +150,10 @@
     </section>
 
     <nav class="bottom-nav">
-      <button class="nav-btn active" data-page="home">
-        ⌂<small>Əsas</small>
-      </button>
-      <button class="nav-btn" data-page="historyPage">
-        ◷<small>Tarixçə</small>
-      </button>
-      <button class="nav-btn" data-page="about">
-        ⓘ<small>Haqqında</small>
-      </button>
-      <button class="nav-btn" data-page="settings">
-        ⚙<small>Parametrlər</small>
-      </button>
+      <button class="nav-btn active" data-page="home" type="button">⌂<small>Əsas</small></button>
+      <button class="nav-btn" data-page="historyPage" type="button">◷<small>Tarixçə</small></button>
+      <button class="nav-btn" data-page="about" type="button">ⓘ<small>Haqqında</small></button>
+      <button class="nav-btn" data-page="settings" type="button">⚙<small>Parametrlər</small></button>
     </nav>
 
     <div class="footer-brand">ehmedows⚡</div>
