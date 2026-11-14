@@ -2,79 +2,153 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10091e">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#080510">
   <title>VioletDL</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
+  <div id="splash" class="splash">
+    <div class="splash-logo">V</div>
+    <h1>Violet<span>DL</span></h1>
+    <p>TikTok Video Downloader</p>
+    <div class="loader"></div>
+    <div class="creator">ehmedows⚡</div>
+  </div>
 
-  <header>
-    <div class="logo">V<span>D</span></div>
-    <div class="brand">
-      <h1>VioletDL</h1>
-      <p>ehmedows⚡ · TikTok Downloader</p>
-    </div>
-    <div class="status"><i></i> Aktiv</div>
-  </header>
+  <main id="app" class="app hidden">
 
-  <section class="hero">
-    <div class="music-icon">
-      <svg viewBox="0 0 100 100">
-        <rect width="100" height="100" rx="28" fill="#7625bd"/>
-        <path d="M58 22v39a17 17 0 1 1-13-16v12a6 6 0 1 0 4 6V22z" fill="white"/>
-        <path d="M58 22v12c6 5 12 7 17 7V29c-6-1-12-3-17-7z" fill="white"/>
-      </svg>
-    </div>
-    <h2>Videonu yüklə</h2>
-    <p>Sevdiyin TikTok videolarını asanlıqla saxla.</p>
-  </section>
-
-  <section class="download-card">
-    <label for="videoUrl">TikTok video linki</label>
-
-    <div class="input-row">
-      <div class="input-box">
-        <span class="link-icon">↗</span>
-        <input id="videoUrl" type="url" placeholder="TikTok linkini daxil et">
+    <header class="topbar">
+      <div class="brand">
+        <div class="small-logo">V</div>
+        <div>
+          <h2>Violet<span>DL</span></h2>
+          <small>TikTok Video Downloader</small>
+        </div>
       </div>
-      <button id="pasteBtn" class="paste-btn">Yapışdır</button>
-    </div>
+      <div class="online"><i></i> ONLINE</div>
+    </header>
 
-    <button id="downloadBtn" class="download-btn">
-      <span>↓</span> Videonu yüklə
-    </button>
+    <!-- ƏSAS -->
+    <section id="home" class="page active">
+      <div class="download-card">
+        <div class="intro">
+          <div class="tiktok-icon">♪</div>
+          <div>
+            <h3>TikTok Videolarını<br>Asanlıqla Yüklə!</h3>
+            <p>Linki əlavə et və videonu saxla.</p>
+          </div>
+        </div>
 
-    <p id="message" class="message">TikTok video linkini daxil et.</p>
+        <div class="link-box">
+          <span class="link-icon">🔗</span>
+          <input id="videoLink" type="url"
+                 placeholder="TikTok linki..."
+                 autocomplete="off">
+          <button id="pasteBtn" class="paste-btn" type="button"
+                  aria-label="Yapışdır">▢</button>
+        </div>
 
-    <div id="result" hidden>
-      <p>Video hazırdır!</p>
-      <a id="saveBtn" href="#" download="VioletDL.mp4">Videonu saxla ↓</a>
-    </div>
-  </section>
+        <button id="downloadBtn" class="download-btn" type="button">
+          ⬇ Videonu Yüklə
+        </button>
 
-  <section class="feature">
-    <div class="shield">🛡️</div>
-    <div>
-      <strong>Sadə və rahat</strong>
-      <p>Linki daxil et, videonu əldə et və telefonunda saxla.</p>
-    </div>
-  </section>
+        <div id="progressBox" class="progress-box hidden">
+          <div class="progress-info">
+            <span id="progressText">Video hazırlanır...</span>
+            <b id="progressPercent">1%</b>
+          </div>
+          <div class="progress-track">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
 
-  <section class="history-section">
-    <div class="history-header">
-      <h3>Son yükləmələr</h3>
-      <button id="clearHistory">Təmizlə</button>
-    </div>
-    <div id="history" class="history">
-      <p>Hələ video yüklənməyib.</p>
-    </div>
-  </section>
+        <p id="status" class="status"></p>
 
-</div>
+        <div class="features">
+          <div>⚡ <span>Sürətli<br>Yükləmə</span></div>
+          <div>🛡️ <span>Təhlükəsiz<br>İstifadə</span></div>
+        </div>
+      </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- TARİXÇƏ -->
+    <section id="historyPage" class="page">
+      <div class="section-heading">
+        <h2>◷ Yükləmə tarixçəsi</h2>
+        <button id="clearHistory" type="button">Təmizlə</button>
+      </div>
+      <div id="history" class="history-list"></div>
+    </section>
+
+    <!-- HAQQINDA -->
+    <section id="about" class="page">
+      <div class="about-content">
+        <div class="about-logo">V</div>
+        <h1>Violet<span>DL</span></h1>
+        <p>TikTok Video Downloader</p>
+        <div class="about-card">
+          VioletDL – TikTok videolarını asanlıqla yükləmək üçün hazırlanmış tətbiqdir.
+          <ul>
+            <li>🟢 Sürətli və rahat</li>
+            <li>🟢 Sadə istifadə</li>
+            <li>🟢 Pulsuz istifadə</li>
+          </ul>
+          <small>Versiya 1.0.0</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARAMETRLƏR -->
+    <section id="settings" class="page">
+      <h2 class="page-title">⚙️ Parametrlər</h2>
+
+      <div class="settings-card">
+        <div class="setting-row">
+          <span>🌙 Qaranlıq rejim</span>
+          <span class="switch on"></span>
+        </div>
+        <div class="setting-row">
+          <span>🌐 Server</span>
+          <strong class="online"><i></i> ONLINE</strong>
+        </div>
+        <div class="setting-row">
+          <span>ⓘ Versiya</span>
+          <span>1.0.0</span>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <div class="setting-row">
+          <span>ⓘ Tətbiq haqqında</span>
+          <span>›</span>
+        </div>
+        <div class="setting-row">
+          <span>➤ Əlaqə</span>
+          <span>›</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-page="home">
+        ⌂<small>Əsas</small>
+      </button>
+      <button class="nav-btn" data-page="historyPage">
+        ◷<small>Tarixçə</small>
+      </button>
+      <button class="nav-btn" data-page="about">
+        ⓘ<small>Haqqında</small>
+      </button>
+      <button class="nav-btn" data-page="settings">
+        ⚙<small>Parametrlər</small>
+      </button>
+    </nav>
+
+    <div class="footer-brand">ehmedows⚡</div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
