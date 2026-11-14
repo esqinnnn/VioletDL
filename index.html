@@ -5,160 +5,139 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#080510">
-  <meta name="description" content="VioletDL - TikTok Video Downloader">
   <title>VioletDL</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-  <div id="splash" class="splash">
-    <div class="splash-logo crystal">
-      <svg viewBox="0 0 180 180">
-        <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
-        <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
-        <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
-        <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
-      </svg>
+<div id="splash" class="splash">
+  <div class="logo">💎</div>
+  <h1>Violet<span>DL</span></h1>
+  <p>TikTok Video Downloader</p>
+  <div class="loader"></div>
+  <small>ehmedows⚡</small>
+</div>
+
+<main id="app" class="app hidden">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">💎</div>
+      <div>
+        <h2>Violet<span>DL</span></h2>
+        <small>TikTok Video Downloader</small>
+      </div>
     </div>
-    <h1>Violet<span>DL</span></h1>
-    <p>TikTok Video Downloader</p>
-    <div class="loader"></div>
-    <div class="creator">ehmedows⚡</div>
-  </div>
+    <div class="online"><i></i> ONLINE</div>
+  </header>
 
-  <main id="app" class="app hidden">
-
-    <header class="topbar">
-      <div class="brand">
-        <div class="small-logo crystal">
-          <svg viewBox="0 0 180 180">
-            <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
-            <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
-            <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
-            <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="4"/>
-          </svg>
-        </div>
+  <section id="home" class="page active">
+    <div class="download-card">
+      <div class="intro">
+        <div class="tiktok-icon">♪</div>
         <div>
-          <h2>Violet<span>DL</span></h2>
-          <small>TikTok Video Downloader</small>
+          <h3>TikTok Videolarını<br>Asanlıqla Yüklə!</h3>
+          <p>Linki əlavə et və videonu saxla.</p>
         </div>
       </div>
-      <div class="online"><i></i> ONLINE</div>
-    </header>
 
-    <section id="home" class="page active">
-      <div class="download-card">
-        <div class="intro">
-          <div class="tiktok-icon">♪</div>
-          <div>
-            <h3>TikTok Videolarını<br>Asanlıqla Yüklə!</h3>
-            <p>Linki əlavə et və videonu saxla.</p>
-          </div>
+      <label for="videoLink">TikTok video linki</label>
+
+      <div class="link-box">
+        <span>🔗</span>
+        <input id="videoLink" type="url" placeholder="TikTok linki..." autocomplete="off">
+        <button id="pasteBtn" type="button">▢</button>
+      </div>
+
+      <button id="downloadBtn" class="download-btn" type="button">
+        ⬇ Videonu Yüklə
+      </button>
+
+      <div id="progressBox" class="progress-box hidden">
+        <div class="progress-info">
+          <span id="progressText">Video hazırlanır...</span>
+          <b id="progressPercent">0%</b>
         </div>
-
-        <label class="input-label" for="videoLink">TikTok video linki</label>
-
-        <div class="link-box">
-          <span class="link-icon">🔗</span>
-          <input id="videoLink" type="url" placeholder="TikTok linki..." autocomplete="off" spellcheck="false">
-          <button id="pasteBtn" class="paste-btn" type="button" aria-label="Linki yapışdır">▢</button>
-        </div>
-
-        <button id="downloadBtn" class="download-btn" type="button">⬇ Videonu Yüklə</button>
-
-        <div id="progressBox" class="progress-box hidden">
-          <div class="progress-info">
-            <span id="progressText">Video hazırlanır...</span>
-            <b id="progressPercent">1%</b>
-          </div>
-          <div class="progress-track">
-            <div id="progressFill" class="progress-fill"></div>
-          </div>
-        </div>
-
-        <p id="status" class="status"></p>
-
-        <div class="features">
-          <div>⚡ <span>Sürətli<br>Yükləmə</span></div>
-          <div>🛡️ <span>Təhlükəsiz<br>İstifadə</span></div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
         </div>
       </div>
-    </section>
 
-    <section id="historyPage" class="page">
-      <div class="section-heading">
-        <h2>◷ Yükləmə tarixçəsi</h2>
-        <button id="clearHistory" type="button">Təmizlə</button>
+      <p id="status" class="status"></p>
+
+      <div class="features">
+        <div>⚡ <span>Sürətli<br>Yükləmə</span></div>
+        <div>🛡️ <span>Təhlükəsiz<br>İstifadə</span></div>
       </div>
-      <div id="history" class="history-list">
-        <div class="empty">Hələ video yüklənməyib.</div>
+    </div>
+  </section>
+
+  <section id="historyPage" class="page">
+    <div class="section-heading">
+      <h2>◷ Yükləmə tarixçəsi</h2>
+      <button id="clearHistory" type="button">Təmizlə</button>
+    </div>
+    <div id="history" class="history-list"></div>
+  </section>
+
+  <section id="about" class="page">
+    <div class="about-content">
+      <div class="about-logo">💎</div>
+      <h1>Violet<span>DL</span></h1>
+      <p>TikTok Video Downloader</p>
+      <div class="about-card">
+        VioletDL – TikTok videolarını rahat yükləmək üçün hazırlanmış tətbiqdir.
+        <ul>
+          <li>⚡ Sürətli yükləmə</li>
+          <li>🛡️ Rahat istifadə</li>
+          <li>💜 Sadə dizayn</li>
+        </ul>
+        <small>Versiya 1.0.0</small>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about" class="page">
-      <div class="about-content">
-        <div class="about-logo crystal">
-          <svg viewBox="0 0 180 180">
-            <polygon points="90,8 143,36 166,84 90,170 14,84 37,36" fill="#cbb0ff"/>
-            <polygon points="90,8 90,170 14,84 37,36" fill="#fff" opacity=".4"/>
-            <polygon points="90,8 143,36 166,84 90,170" fill="#7434bd" opacity=".75"/>
-            <path d="M37 36 L90 60 L143 36 M90 60 L14 84 M90 60 L166 84 M90 60 L90 170" fill="none" stroke="#fff" stroke-width="3"/>
-          </svg>
-        </div>
-
-        <h1>Violet<span>DL</span></h1>
-        <p>TikTok Video Downloader</p>
-
-        <div class="about-card">
-          VioletDL – TikTok videolarını asanlıqla yükləmək üçün hazırlanmış tətbiqdir.
-          <ul>
-            <li>🟢 Sürətli və rahat</li>
-            <li>🟢 Sadə istifadə</li>
-            <li>🟢 Pulsuz istifadə</li>
-          </ul>
-          <small>Versiya 1.0.0</small>
-        </div>
+  <section id="settings" class="page">
+    <h2 class="page-title">⚙️ Parametrlər</h2>
+    <div class="settings-card">
+      <div class="setting-row">
+        <span>🌙 Qaranlıq rejim</span>
+        <strong>Aktiv</strong>
       </div>
-    </section>
-
-    <section id="settings" class="page">
-      <h2 class="page-title">⚙️ Parametrlər</h2>
-      <div class="settings-card">
-        <div class="setting-row">
-          <span>🌙 Qaranlıq rejim</span>
-          <span class="switch on"></span>
-        </div>
-        <div class="setting-row">
-          <span>🌐 Server</span>
-          <strong class="online"><i></i> ONLINE</strong>
-        </div>
-        <div class="setting-row">
-          <span>ⓘ Versiya</span>
-          <span>1.0.0</span>
-        </div>
+      <div class="setting-row">
+        <span>🌐 Server</span>
+        <strong>ONLINE</strong>
       </div>
-      <div class="settings-card">
-        <div class="setting-row">
-          <span>ⓘ Tətbiq haqqında</span>
-          <span>›</span>
-        </div>
-        <div class="setting-row">
-          <span>➤ Əlaqə</span>
-          <span>›</span>
-        </div>
+      <div class="setting-row">
+        <span>ⓘ Versiya</span>
+        <span>1.0.0</span>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-page="home" type="button">⌂<small>Əsas</small></button>
-      <button class="nav-btn" data-page="historyPage" type="button">◷<small>Tarixçə</small></button>
-      <button class="nav-btn" data-page="about" type="button">ⓘ<small>Haqqında</small></button>
-      <button class="nav-btn" data-page="settings" type="button">⚙<small>Parametrlər</small></button>
-    </nav>
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-page="home" type="button">⌂<small>Əsas</small></button>
+    <button class="nav-btn" data-page="historyPage" type="button">◷<small>Tarixçə</small></button>
+    <button class="nav-btn" data-page="about" type="button">ⓘ<small>Haqqında</small></button>
+    <button class="nav-btn" data-page="settings" type="button">⚙<small>Parametrlər</small></button>
+  </nav>
 
-    <div class="footer-brand">ehmedows⚡</div>
-  </main>
+  <div class="footer-brand">ehmedows⚡</div>
+</main>
 
-  <script src="script.js"></script>
+<div id="updateModal" class="update-overlay hidden">
+  <div class="update-card">
+    <div class="update-icon">💎</div>
+    <h2>Yeni yeniləmə mövcuddur!</h2>
+    <p id="updateVersion">Yeni versiya</p>
+    <p id="updateDescription">VioletDL üçün yeni yeniləmə hazırdır.</p>
+    <a id="updateNowBtn" class="update-button"
+       href="https://esqinnnn.github.io/VioletDL/update.html">
+      İndi yenilə
+    </a>
+  </div>
+</div>
+
+<script src="./script.js"></script>
 </body>
 </html>
