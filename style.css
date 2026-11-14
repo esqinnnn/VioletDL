@@ -4,29 +4,289 @@
   padding: 0;
 }
 
+:root {
+  --bg: #10091e;
+  --card: #1b1230;
+  --purple: #a855f7;
+  --pink: #e879f9;
+  --text: #ffffff;
+  --muted: #a99cbd;
+}
+
 body {
-  background: #10091e;
-  color: white;
+  background: var(--bg);
+  color: var(--text);
   font-family: Arial, sans-serif;
   min-height: 100vh;
 }
 
-#app {
+.app {
+  width: 100%;
   max-width: 520px;
   margin: auto;
-  padding: 30px 20px;
+  padding: 20px 17px 100px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0 25px;
+}
+
+.logo {
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #9333ea, #ec4899);
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.logo span {
+  color: #f5d0fe;
+}
+
+.brand h1 {
+  font-size: 22px;
+}
+
+.brand p {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.status {
+  margin-left: auto;
+  border: 1px solid #39274f;
+  border-radius: 20px;
+  padding: 8px 10px;
+  color: #d8c9eb;
+  font-size: 11px;
+}
+
+.status i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  margin-right: 4px;
+}
+
+.hero {
   text-align: center;
+  padding: 26px 5px 29px;
 }
 
-h1 {
-  font-size: 32px;
-  background: linear-gradient(90deg, #a855f7, #e879f9);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+.music-icon {
+  width: 73px;
+  height: 73px;
+  margin: 0 auto 17px;
 }
 
-p {
-  color: #a99cbd;
-  margin-top: 10px;
+.music-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero h2 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.download-card,
+.feature,
+.history {
+  background: linear-gradient(145deg, #211533, #181026);
+  border: 1px solid #39254d;
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.download-card label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #48305e;
+  border-radius: 13px;
+  padding: 5px 8px;
+  background: #110b1c;
+}
+
+.link-icon {
+  color: var(--pink);
+  font-size: 22px;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 12px 5px;
+  font-size: 12px;
+}
+
+input::placeholder {
+  color: #857696;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.paste-btn {
+  background: #30203f;
+  border: none;
+  border-radius: 9px;
+  color: #e9d5ff;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.download-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px;
+  border: none;
+  border-radius: 13px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  background: linear-gradient(100deg, #9333ea, #c026d3);
+  box-shadow: 0 8px 24px #9333ea33;
+}
+
+.download-btn span {
+  font-size: 20px;
+  margin-right: 7px;
+}
+
+.message {
+  margin-top: 14px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#result {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #17291f;
+  border: 1px solid #28543a;
+}
+
+#result[hidden] {
+  display: none;
+}
+
+#result p {
+  color: #4ade80;
+  margin-bottom: 12px;
+}
+
+#result a {
+  display: block;
+  padding: 13px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 10px;
+  background: #23864b;
+}
+
+.feature {
+  display: flex;
+  gap: 14px;
+  margin-top: 17px;
+  padding: 17px;
+}
+
+.shield {
+  font-size: 24px;
+}
+
+.feature strong {
+  font-size: 13px;
+}
+
+.feature p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+.history-section {
+  margin-top: 28px;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.history-header h3 {
+  font-size: 16px;
+}
+
+.history-header button {
+  color: #d8b4fe;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+}
+
+.history {
+  padding: 15px;
+}
+
+.history p {
+  text-align: center;
+  color: #8f819f;
+  font-size: 12px;
+  padding: 10px 0;
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
 }
