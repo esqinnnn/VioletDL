@@ -333,3 +333,24 @@ $("downloadBtn").addEventListener("click", async () => {
     button.textContent = "⬇ Videonu Yüklə";
   }
 });
+// Chrome-da yeniləmə səhifəsini aç
+const updateButton = $("updateNowBtn");
+
+if (updateButton) {
+  updateButton.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const url = this.href;
+
+    const chromeIntent =
+      "intent://" +
+      url.replace(/^https?:\/\//i, "") +
+      "#Intent;scheme=https;" +
+      "package=com.android.chrome;" +
+      "S.browser_fallback_url=" +
+      encodeURIComponent(url) +
+      ";end";
+
+    window.location.href = chromeIntent;
+  });
+}
