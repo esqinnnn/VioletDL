@@ -5,78 +5,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080510">
-  <title>VioletDL Yeniləmə</title>
-
+  <title>VioletDL — Yeniləmə</title>
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      background: #080510;
+      background: radial-gradient(circle at top, #481078, #080510 65%);
       color: white;
       font-family: Arial, sans-serif;
     }
-
     .card {
       width: 100%;
       max-width: 380px;
       padding: 30px 22px;
-      border: 1px solid #7040a0;
-      border-radius: 24px;
-      background: linear-gradient(145deg, #211333, #10091c);
       text-align: center;
-      box-shadow: 0 0 45px #7900ff35;
+      border: 1px solid #a66bff70;
+      border-radius: 25px;
+      background: linear-gradient(145deg, #211333, #10091c);
+      box-shadow: 0 0 45px #7900ff45;
     }
-
-    .logo { font-size: 55px; margin-bottom: 15px; }
-    h1 { font-size: 25px; }
-
-    p {
-      color: #b9a9c9;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
+    .logo { font-size: 65px; margin-bottom: 15px; }
+    h1 { margin: 0 0 10px; }
+    h1 span { color: #bd79ff; }
+    p { color: #b9a9c9; font-size: 14px; line-height: 1.7; }
+    .version { color: #d6a5ff; margin: 20px 0; }
     .download {
       display: block;
-      margin-top: 25px;
+      width: 100%;
       padding: 16px;
+      margin-top: 25px;
+      border: 0;
       border-radius: 13px;
       background: linear-gradient(100deg, #7900ff, #c000ff);
       color: white;
-      text-decoration: none;
+      font-size: 16px;
       font-weight: bold;
     }
-
-    .download:active { opacity: .8; }
+    .note { margin-top: 20px; font-size: 11px; color: #8f819f; }
   </style>
 </head>
-
 <body>
-  <div class="card">
+  <main class="card">
     <div class="logo">💎</div>
+    <h1>Violet<span>DL</span></h1>
+    <p>Yeni versiya hazırdır!</p>
+    <div class="version">VioletDL — Versiya 1.1.0</div>
+    <p>Ən son versiyanı yükləmək üçün aşağıdakı düyməyə toxun.</p>
 
-    <h1>VioletDL Yeniləmə</h1>
-
-    <p>
-      Tətbiqin yeni versiyasını yükləmək üçün
-      aşağıdakı düyməyə bas.
-    </p>
-
-    <a
-      class="download"
-      href="https://github.com/esqinnnn/VioletDL/raw/refs/heads/main/VioletDL.apk"
-      target="_blank"
-      rel="noopener"
-    >
+    <button class="download" onclick="downloadAPK()">
       ⬇ APK-nı yüklə
-    </a>
+    </button>
 
-    <p>VioletDL • Rəsmi yeniləmə səhifəsi</p>
-  </div>
+    <div class="note">VioletDL © 2026 · ehmedows⚡</div>
+  </main>
+
+  <script>
+    function downloadAPK() {
+      const url = "https://github.com/esqinnnn/VioletDL/raw/refs/heads/main/VioletDL.apk";
+
+      const intent =
+        "intent://" +
+        url.replace(/^https?:\/\//, "") +
+        "#Intent;scheme=https;" +
+        "package=com.android.chrome;" +
+        "S.browser_fallback_url=" +
+        encodeURIComponent(url) +
+        ";end";
+
+      window.location.href = intent;
+    }
+  </script>
 </body>
 </html>
